@@ -25,7 +25,7 @@ def merge(l:list, r:list) -> list:
     for k in range(m):
         if l[i] <= r[j]:
             s[k] = l[i]
-            i += 1
+            i += 1  # can be out of range, need add one inf element
         else:
             s[k] = r[j]
             j += 1
