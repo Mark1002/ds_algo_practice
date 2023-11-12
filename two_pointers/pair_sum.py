@@ -1,11 +1,12 @@
 """
-two pointers technique: 
+two pointers technique:
 given a sorted array, one side is the leftmost pointer,
 the other side is the rightmost pointer.
 we can use these two pointers to compare or search element.
 """
 
-def is_pair_sum(arr: list, val:int) -> bool:
+
+def is_pair_sum(arr: list, val: int) -> bool:
     arr.sort()
     left, right = 0, len(arr)-1
     while left < right:
