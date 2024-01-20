@@ -20,7 +20,7 @@ def timer(func):
 
 def run(test_cases: List[Dict[str, Any]], func: Callable[[Any], Any]):
     for test_case in test_cases:
-        result = func(test_case["input"])
+        result = func(**test_case["input"])
         expected = test_case["ans"]
         if result != expected:
             raise AssertionError(f"input: {test_case['input']}, want: {expected}, but get {result}") # noqa
