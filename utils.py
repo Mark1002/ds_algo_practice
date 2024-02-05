@@ -19,6 +19,9 @@ def timer(func):
 
 
 def run(test_cases: List[Dict[str, Any]], func: Callable[[Any], Any]):
+    """
+    test_cases: [{"input": {"arg1": Any, "arg2": Any}, "ans": Any}]
+    """
     for test_case in test_cases:
         result = func(**test_case["input"])
         expected = test_case["ans"]
