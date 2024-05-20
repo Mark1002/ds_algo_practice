@@ -7,13 +7,14 @@ from utils import run
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         count = 0
-        h = {}
+        h = set()
         left, right = 0, 0
         while right < len(s):
-            if s[right] in h:
-                left = max(h[s[right]] + 1, left)
+            while s[right] in h:
+                h.remove(s[left])
+                left += 1
+            h.add(s[right])
             count = max(right - left + 1, count)
-            h[s[right]] = right
             right += 1
         return count
 
