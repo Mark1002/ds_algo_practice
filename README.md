@@ -1,1 +1,1 @@
-# My algorithm and data structure pratice
+# My algorithm and data structure practice
