@@ -3,28 +3,34 @@ from typing import List
 from utils import run
 
 
-def solution(a: List[int], b: List[int]) -> List[int]:
-    a_sum = sum(a)
-    b_sum = sum(b)
+class Solution:
+    def fairCandySwap(
+        self, aliceSizes: List[int], bobSizes: List[int]
+    ) -> List[int]:
+        a_sum = sum(aliceSizes)
+        b_sum = sum(bobSizes)
+        half_sum = (a_sum + b_sum) // 2  # 相加除以二得出交換後的相等和
+        b_m = set(bobSizes)
 
-    for i in range(len(a)):
-        for j in range(len(b)):
-            swap_a_sum = a_sum - a[i] + b[j]
-            swap_b_sum = b_sum - b[j] + a[i]
-            print((a[i], b[j]), swap_a_sum, swap_b_sum)
-            if swap_a_sum == swap_b_sum:
-                return [a[i], b[j]]
+        for a_candy in aliceSizes:  # 只考慮一邊就好
+            b_candy = half_sum - (a_sum - a_candy)  # 如此就可以推敲出交換的candy要為多少
+            if b_candy in b_m:
+                return [a_candy, b_candy]
+        return []
 
 
 if __name__ == "__main__":
     test_cases = [
         {
-            "input": {"a": [4, 1, 2, 1, 1, 2], "b": [3, 6, 3, 3]},
-            "ans": (1, 3)
+            "input": {
+                "aliceSizes": [4, 1, 2, 1, 1, 2], "bobSizes": [3, 6, 3, 3]
+            },
+            "ans": [4, 6]
         },
         {
-            "input": {"a": [5, 7, 4, 6], "b": [1, 2, 3, 8]},
-            "ans": (6, 2)
+            "input": {"aliceSizes": [5, 7, 4, 6], "bobSizes": [1, 2, 3, 8]},
+            "ans": [5, 1]
         }
     ]
-    run(test_cases, solution)
+    s = Solution()
+    run(test_cases, s.fairCandySwap)
