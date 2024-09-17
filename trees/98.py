@@ -11,8 +11,13 @@ class TreeNode:
 
 
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        # inorder traversal BST will be a ascend incremental sequence
+    """
+    Inorder traversal BST will be a ascend incremental sequence.
+    BST inorder traversal:
+    1,2,3,4,5,6 (O) valid BST
+    1,3,2,4,5,6 (X) invalid BST
+    """
+    def recur_isValidBST(self, root: Optional[TreeNode]) -> bool:
         self.pre = None
 
         def inorder(root):
@@ -28,3 +33,18 @@ class Solution:
             right_valid = inorder(root.right)
             return left_valid and right_valid
         return inorder(root)
+
+    def iterate_isValidBST(self, root: Optional[TreeNode]) -> bool:
+        stack = []
+        cur = root
+        pre = None
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            node = stack.pop()
+            if pre is not None and pre.val >= node.val:
+                return False
+            pre = node
+            cur = node.right
+        return True
