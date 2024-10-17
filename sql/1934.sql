@@ -1,4 +1,4 @@
--- Write your PostgreSQL query statement below
+-- https://leetcode.com/problems/confirmation-rate
 WITH T1 AS (
     SELECT
         s.user_id as user_id,
