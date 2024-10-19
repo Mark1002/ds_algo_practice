@@ -1,4 +1,4 @@
-"""https://leetcode.com/problems/immediate-food-delivery-ii"""
+-- https://leetcode.com/problems/immediate-food-delivery-ii
 select
 round(
     avg(
