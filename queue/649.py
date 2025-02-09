@@ -13,7 +13,7 @@ class Solution:
         while queueR and queueD:
             r_i = queueR.popleft()
             d_i = queueD.popleft()
-            # 加n表示下一輪的index，不加會導致上一個較小的index永遠還是最小 
+            # 加n表示下一輪的index，不加會導致上一個較小的index永遠還是最小
             if d_i < r_i:
                 queueD.append(d_i + n)
             else:
