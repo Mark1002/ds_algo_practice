@@ -1,10 +1,11 @@
 """https://leetcode.com/problems/find-if-path-exists-in-graph."""
 
 from typing import List
+from collections import deque
 from utils import run
 
 class Solution:
-    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+    def validPath_iterate_dfs(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         if source == destination:
             return True
 
@@ -26,6 +27,51 @@ class Solution:
                 if ni not in visit:
                     stack.append(ni)
                     visit.add(ni)
+        return False
+
+    def validPath_recursive_dfs(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        visit = set()
+        graph = [[] for _ in range(n)]
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        def dfs(node) -> bool:
+            """Func execution means pop from stack."""
+            if node == destination:
+                return True
+            visit.add(node)
+            for nei in graph[node]:
+                if nei not in visit:
+                    if dfs(nei):
+                        return True
+            return False
+
+        return dfs(source)
+
+    def validPath_bfs(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        if source == destination:
+            return True
+
+        graph = [[] for _ in range(n)]
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        visit = set()
+        queue = deque()
+        queue.append(source)
+        visit.add(source)
+
+        while queue:
+            curr = queue.popleft()
+            if curr == destination:
+                return True
+            for nie in graph[curr]:
+                if nie in visit:
+                    continue
+                queue.append(nie)
+                visit.add(nie)
         return False
 
 
@@ -71,5 +117,7 @@ if __name__ == "__main__":
     ]
     
     solution = Solution()
-    run(test_cases, solution.validPath)
+    run(test_cases, solution.validPath_iterate_dfs)
+    run(test_cases, solution.validPath_recursive_dfs)
+    run(test_cases, solution.validPath_bfs)
 
